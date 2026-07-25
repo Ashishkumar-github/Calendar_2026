@@ -12,6 +12,7 @@
     --gold:#D4A017;--gold-soft:#F6D365;--indigo:#14213D;--vermillion:#E85D04;
     --ink:#2C1810;--ink-soft:rgba(44,24,16,.65);--line:rgba(44,24,16,.12);
     --card:rgba(255,255,255,.72);
+    --holiday: #2E7D32;
   }
 
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -81,60 +82,105 @@
   }
   .hero-meta span b{ color: var(--paper); font-weight:600; }
 
-  /* moon phase strip - signature element */
-  .moon-strip{
-    display:flex; justify-content:center; gap:6px; margin: 26px 0 4px;
+  /* ===== CONTROLS (SEARCH & FILTERS) ===== */
+  .controls-section {
+    background: var(--paper);
+    padding: 20px 6vw;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 40;
   }
-  .moon-dot{ width:6px; height:6px; border-radius:50%; background: rgba(220,193,126,0.35); }
-  .moon-dot.full{ background: var(--gold-soft); box-shadow: 0 0 6px rgba(220,193,126,0.7);}
-  .moon-dot.new{ background: transparent; border: 1px solid rgba(220,193,126,0.5);}
+  .controls-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centered horizontally */
+    gap: 16px;
+  }
+  .search-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 18px;
+    border: 1px solid var(--gold);
+    border-radius: 30px;
+    font-family: 'Vesper Libre', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background: rgba(255,255,255,0.8);
+    outline: none;
+    transition: box-shadow 0.2s;
+  }
+  .search-box:focus {
+    box-shadow: 0 0 0 3px rgba(212,160,23,0.2);
+  }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centered filters */
+    gap: 8px;
+  }
+  .filter-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { background: rgba(0,0,0,0.03); }
+  .filter-btn.active {
+    background: var(--maroon);
+    color: var(--paper);
+    border-color: var(--maroon);
+  }
 
   /* ===== STICKY NAV ===== */
   .month-nav{
     position: sticky; top:0; z-index: 50;
-    background: var(--paper);
+    background: rgba(255,248,238,.92);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
-    display:flex; overflow-x:auto;
-    padding: 0 4vw;
+    display:flex; 
+    flex-wrap: wrap; /* Wraps items seamlessly based on screen size */
+    padding: 8px 4vw;
+    gap: 4px;
     box-shadow: 0 2px 10px rgba(42,32,22,0.05);
+    justify-content: center; /* Center the navigation items */
   }
-  .month-nav::-webkit-scrollbar{ display:none; }
   .month-nav a{
     flex: 0 0 auto;
     font-family:'JetBrains Mono', monospace;
     font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase;
     color: var(--ink-soft);
     text-decoration:none;
-    padding: 14px 14px;
+    padding: 8px 12px;
     border-bottom: 2px solid transparent;
     white-space:nowrap;
     transition: color 0.2s, border-color 0.2s;
   }
   .month-nav a:hover{ color: var(--maroon); }
-  .month-nav a.active{ color: var(--maroon); border-bottom-color: var(--vermillion); font-weight:600;}
-
-  /* ===== LEGEND ===== */
-  .legend{
-    max-width: 980px; margin: 34px auto 0; padding: 0 6vw;
-    display:flex; flex-wrap:wrap; gap: 10px 22px;
-    font-family:'JetBrains Mono', monospace; font-size: 0.72rem;
-    color: var(--ink-soft);
+  .month-nav a.active{ 
+    background:linear-gradient(90deg,#E85D04,#D4A017);
+    color:#fff;
+    border-radius:40px;
+    border:none;
+    padding: 8px 12px;
   }
-  .legend-item{ display:flex; align-items:center; gap:7px; }
-  .swatch{ width:10px; height:10px; border-radius:3px; flex:0 0 auto; }
-  .swatch.festival{ background: var(--vermillion); }
-  .swatch.ekadashi{ background: var(--gold); }
-  .swatch.purnima{ background: var(--maroon); }
-  .swatch.amavasya{ background: var(--indigo); }
 
   /* ===== MONTHS ===== */
   .months{ max-width: 980px; margin: 0 auto; padding: 20px 6vw 100px; position:relative; z-index:1;}
-  .month-section{ padding-top: 46px; scroll-margin-top: 60px; }
+  .month-section{ padding-top: 46px; scroll-margin-top: 150px; }
   .month-head{
-    display:flex; align-items:baseline; gap: 16px; margin-bottom: 6px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 14px;
+    display:flex; align-items:baseline; justify-content:center; flex-wrap:wrap; gap: 16px; margin-bottom: 6px;
+    position:relative;border:none;padding-bottom:22px; text-align:center; /* Centered month titles */
   }
+  .month-head::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:120px;height:4px;border-radius:10px;background:linear-gradient(90deg,#E85D04,#FFD54F,#7B2CBF);} /* Centered underline */
   .month-head .num{
     font-family:'JetBrains Mono', monospace; font-size:0.85rem; color: var(--gold);
   }
@@ -145,13 +191,13 @@
   }
   .month-head .lunar-name{
     font-family:'JetBrains Mono', monospace; font-size:0.75rem; color: var(--ink-soft);
-    margin-left:auto;
   }
-  .month-note{
-    font-size: 0.86rem; color: var(--ink-soft); font-style:italic;
-    margin: 10px 0 18px;
-    padding: 10px 14px; background: rgba(181,137,46,0.09);
-    border-left: 2px solid var(--gold);
+
+  /* Target Highlight Animation */
+  @keyframes highlightPulse {
+    0% { box-shadow: 0 0 0 0 rgba(212,160,23,0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(212,160,23,0); }
+    100% { box-shadow: 0 0 0 0 rgba(212,160,23,0); }
   }
 
   .event-row{
@@ -166,8 +212,12 @@
     align-items:start;
     padding: 14px 4px;
     border-bottom: 1px solid var(--line);
+    transition: transform 0.2s, box-shadow 0.2s;
+    scroll-margin-top: 180px;
   }
-  .event-row:last-child{ border-bottom:none; }
+  .event-row:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(0,0,0,.12);}
+  .event-row.target-highlight { animation: highlightPulse 1.5s ease-out; border: 1px solid var(--gold); }
+  
   .event-date{
     text-align:center;
     padding-top: 2px;
@@ -175,11 +225,12 @@
   .event-date .d{ font-family:'Yatra One', cursive; font-size:1.5rem; line-height:1; color: var(--ink); }
   .event-date .w{ font-family:'JetBrains Mono', monospace; font-size:0.62rem; text-transform:uppercase; color: var(--ink-soft); letter-spacing:0.04em;}
 
-  .event-body{ border-left: 3px solid var(--line); padding-left: 14px; }
+  .event-body{ border-left: 3px solid var(--line); padding-left: 14px; display:flex; flex-direction:column; justify-content:center; }
   .event-row.festival .event-body{ border-left-color: var(--vermillion); }
   .event-row.ekadashi .event-body{ border-left-color: var(--gold); }
   .event-row.purnima .event-body{ border-left-color: var(--maroon); }
   .event-row.amavasya .event-body{ border-left-color: var(--indigo); }
+  .event-row.holiday .event-body{ border-left-color: var(--holiday); }
 
   .event-name{ font-size: 1.05rem; font-weight:600; color: var(--ink); margin-bottom: 3px; }
   .event-tag{
@@ -193,8 +244,49 @@
   .event-row.ekadashi .event-tag{ background: var(--gold); }
   .event-row.purnima .event-tag{ background: var(--maroon); }
   .event-row.amavasya .event-tag{ background: var(--indigo); }
+  .event-row.holiday .event-tag{ background: var(--holiday); }
 
-  .event-desc{ font-size: 0.86rem; color: var(--ink-soft); margin-top: 4px; }
+  /* Expandable Accordion CSS */
+  .toggle-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+    color: var(--maroon); text-align: left;
+    margin-top: 6px; padding: 4px 0;
+    display: inline-flex; align-items: center; gap: 4px;
+  }
+  .toggle-btn::after {
+    content: '▼'; font-size: 0.6rem; transition: transform 0.3s ease;
+  }
+  .event-row.expanded .toggle-btn::after { transform: rotate(180deg); }
+  
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.4s ease, opacity 0.4s ease, margin-top 0.4s ease;
+  }
+  .event-row.expanded .accordion-content {
+    max-height: 500px;
+    opacity: 1;
+    margin-top: 10px;
+  }
+  .why-text {
+    font-size: 0.9rem; color: var(--ink-soft);
+    background: rgba(246, 231, 204, 0.4);
+    padding: 12px; border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .event-nav {
+    display: flex; gap: 10px;
+  }
+  .nav-btn {
+    background: var(--line); border: none; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    padding: 6px 12px; border-radius: 12px; color: var(--ink);
+    transition: background 0.2s;
+  }
+  .nav-btn:hover { background: rgba(0,0,0,0.1); }
+  .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
   .event-time{
     text-align:right;
@@ -204,37 +296,31 @@
     white-space: nowrap;
     padding-top: 4px;
   }
-  .event-time .lbl{ color: var(--gold); }
+
+  .no-results {
+    display: none;
+    text-align: center; padding: 40px; color: var(--ink-soft);
+    font-style: italic;
+  }
 
   @media (max-width: 640px){
-    .event-row{
-    margin:18px 0;
-    border-radius:18px;
-    background:rgba(255,255,255,.65);
-    backdrop-filter:blur(12px);
-    box-shadow:0 12px 35px rgba(0,0,0,.06); grid-template-columns: 50px 1fr; }
+    .event-row{ grid-template-columns: 50px 1fr; }
     .event-time{ grid-column: 1 / -1; text-align:left; padding-left: 66px; }
-    .month-head .lunar-name{ margin-left:0; flex-basis:100%; }
+    .month-head .lunar-name{ margin-left:0; flex-basis:100%; text-align: center; } /* Ensures lunar name wraps nicely to center */
+    .controls-inner { flex-direction: column; align-items: center; }
+    .search-box { max-width: 100%; }
   }
 
   /* ===== FOOTER ===== */
   footer{
-    background: var(--indigo);
+    background:linear-gradient(135deg,#14213D,#2A2F6B);
     color: rgba(246,238,220,0.7);
     padding: 40px 6vw;
     font-size: 0.82rem;
     text-align:center;
   }
-  footer .fmark{ font-family:'Yatra One', cursive; font-size:1.1rem; color: var(--gold-soft); margin-bottom:10px;}
+  footer .fmark{ font-family:'Yatra One', cursive; font-size:1.1rem; color: var(--gold-soft); margin-bottom:10px; text-shadow:0 0 18px rgba(255,213,79,.6);}
   footer a{ color: var(--gold-soft); }
-
-.event-row:hover{transform:translateY(-6px);box-shadow:0 18px 45px rgba(0,0,0,.12);}
-.month-nav{backdrop-filter:blur(16px);background:rgba(255,248,238,.92);}
-.month-nav a.active{background:linear-gradient(90deg,#E85D04,#D4A017);color:#fff;border-radius:40px;border:none;}
-.month-head{position:relative;border:none;padding-bottom:22px;}
-.month-head::after{content:"";position:absolute;left:0;bottom:0;width:120px;height:4px;border-radius:10px;background:linear-gradient(90deg,#E85D04,#FFD54F,#7B2CBF);}
-footer{background:linear-gradient(135deg,#14213D,#2A2F6B);}
-footer .fmark{text-shadow:0 0 18px rgba(255,213,79,.6);}
 
 </style>
 </head>
@@ -244,30 +330,38 @@ footer .fmark{text-shadow:0 0 18px rgba(255,213,79,.6);}
   <div class="hero-inner">
     <div class="hero-eyebrow">Vikram Samvat 2082–83 · Saka Samvat 1947–48</div>
     <h1>हिंदू पंचांग 2026</h1>
-    <div class="hero-sub">A complete month-by-month guide to festivals, national holidays, Ekadashi, Purnima and Amavasya dates for the year — with tithi start and end times.</div>
-    <div class="moon-strip" id="moonStrip"></div>
+    <div class="hero-sub">A complete month-by-month guide to festivals, national holidays, Ekadashi, Purnima and Amavasya dates for the year.</div>
     <div class="hero-meta">
       <span>Reference city: <b>Bengaluru, India (IST)</b></span>
       <span>Adhik Maas: <b>May 17 – Jun 15</b></span>
-      <span>Ekadashis this year: <b>26</b></span>
+    </div>
+  </div>
+</div>
+
+<div class="controls-section">
+  <div class="controls-inner">
+    <input type="text" id="searchInput" class="search-box" placeholder="Search festivals (e.g., Diwali, Shiva, Ram)...">
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="festival">Festival</button>
+      <button class="filter-btn" data-filter="holiday">National Holiday</button>
+      <button class="filter-btn" data-filter="ekadashi">Ekadashi</button>
+      <button class="filter-btn" data-filter="purnima">Purnima</button>
+      <button class="filter-btn" data-filter="amavasya">Amavasya</button>
     </div>
   </div>
 </div>
 
 <nav class="month-nav" id="monthNav"></nav>
 
-<div class="legend">
-  <div class="legend-item"><span class="swatch festival"></span> Festival / Holiday</div>
-  <div class="legend-item"><span class="swatch ekadashi"></span> Ekadashi (fasting day)</div>
-  <div class="legend-item"><span class="swatch purnima"></span> Purnima (full moon)</div>
-  <div class="legend-item"><span class="swatch amavasya"></span> Amavasya (new moon)</div>
+<div class="months" id="months">
+  <div id="noResults" class="no-results">No events found matching your search.</div>
 </div>
-
-<div class="months" id="months"></div>
 
 <footer>
   <div class="fmark">॥ शुभम् भवतु ॥</div>
   Times shown are calculated for Bengaluru, India (IST) and rounded to the minute. Tithi timings shift with location — for anything time-critical, please confirm against a panchang set to your exact city closer to the date.<br><br>
+  Updated 2026
 </footer>
 
 <script>
@@ -280,7 +374,7 @@ const MONTHS = [
     {type:'festival', date:'2026-01-14', day:'Wed', name:'Makar Sankranti / Pongal / Uttarayan', desc:'Sun\'s transit into Capricorn — kite flying, sesame sweets, harvest festival.'},
     {type:'amavasya', date:'2026-01-18', day:'Sun', name:'Mauni Amavasya', time:'Begins 12:03 AM — Ends 1:21 AM Jan 19'},
     {type:'festival', date:'2026-01-23', day:'Fri', name:'Vasant Panchami', desc:'Saraswati Puja — worship of the goddess of learning and the arts.'},
-    {type:'festival', date:'2026-01-26', day:'Mon', name:'Republic Day', desc:'National holiday.'},
+    {type:'holiday', date:'2026-01-26', day:'Mon', name:'Republic Day', desc:'National holiday commemorating the adoption of the Constitution.'},
     {type:'ekadashi', date:'2026-01-29', day:'Thu', name:'Jaya Ekadashi', time:'Begins 4:35 PM Jan 28 — Ends 1:55 PM Jan 29'}
   ]
 },
@@ -297,8 +391,8 @@ const MONTHS = [
 {
   key:'mar', name:'March', lunar:'Phalguna – Chaitra', num:'03',
   events:[
-    {type:'purnima', date:'2026-03-03', day:'Tue', name:'Phalguna Purnima / Holika Dahan', time:'Begins 5:55 PM Mar 2 — Ends 5:07 PM Mar 3'},
-    {type:'festival', date:'2026-03-04', day:'Wed', name:'Holi (Dhulandi)', desc:'Festival of colours.'},
+    {type:'purnima', date:'2026-03-03', day:'Tue', name:'Phalguna Purnima / Holika Dahan', time:'Begins 5:55 PM Mar 2 — Ends 5:07 PM Mar 3', desc: 'Bonfires are lit to symbolize the burning of the demoness Holika, representing the victory of good over evil.'},
+    {type:'festival', date:'2026-03-04', day:'Wed', name:'Holi (Dhulandi)', desc:'Festival of colours, celebrating the eternal and divine love of Radha Krishna.'},
     {type:'ekadashi', date:'2026-03-15', day:'Sun', name:'Papmochani Ekadashi', time:'Begins 8:10 AM Mar 14 — Ends 9:16 AM Mar 15'},
     {type:'amavasya', date:'2026-03-18', day:'Wed', name:'Chaitra Amavasya', time:'Begins 8:25 AM — Ends 6:52 AM Mar 19'},
     {type:'festival', date:'2026-03-19', day:'Thu', name:'Chaitra Navratri begins / Ugadi / Gudi Padwa', desc:'Hindu New Year for several regional calendars.'},
@@ -309,7 +403,7 @@ const MONTHS = [
 {
   key:'apr', name:'April', lunar:'Chaitra – Vaishakha', num:'04',
   events:[
-    {type:'purnima', date:'2026-04-01', day:'Wed', name:'Chaitra Purnima / Hanuman Jayanti', time:'Begins 7:06 AM — Ends 7:41 AM Apr 2'},
+    {type:'purnima', date:'2026-04-01', day:'Wed', name:'Chaitra Purnima / Hanuman Jayanti', time:'Begins 7:06 AM — Ends 7:41 AM Apr 2', desc: 'Celebrates the birth of Lord Hanuman, the Vanara god and devoted disciple of Lord Rama.'},
     {type:'ekadashi', date:'2026-04-13', day:'Mon', name:'Varuthini Ekadashi', time:'Begins 1:16 AM — Ends 1:08 AM Apr 14'},
     {type:'amavasya', date:'2026-04-17', day:'Fri', name:'Vaishakha Amavasya', time:'Begins 8:11 PM Apr 16 — Ends 5:21 PM Apr 17'},
     {type:'festival', date:'2026-04-20', day:'Mon', name:'Akshaya Tritiya', desc:'Considered the most auspicious day for new beginnings and gold purchase.'},
@@ -353,16 +447,16 @@ const MONTHS = [
     {type:'amavasya', date:'2026-08-12', day:'Wed', name:'Hariyali Amavasya', time:'Begins 1:52 AM — Ends 11:06 PM Aug 12'},
     {type:'festival', date:'2026-08-18', day:'Tue', name:'Nag Panchami', desc:'Worship of serpent deities.'},
     {type:'ekadashi', date:'2026-08-23', day:'Sun', name:'Shravana Putrada Ekadashi', time:'Begins 2:00 AM — Ends 4:18 AM Aug 24'},
-    {type:'purnima', date:'2026-08-28', day:'Fri', name:'Raksha Bandhan / Shravana Purnima', time:'Begins 9:08 AM Aug 27 — Ends 9:48 AM Aug 28', desc:'Long weekend — falls on a Friday this year.'}
+    {type:'purnima', date:'2026-08-28', day:'Fri', name:'Raksha Bandhan / Shravana Purnima', time:'Begins 9:08 AM Aug 27 — Ends 9:48 AM Aug 28', desc:'Celebrating the sister-brother bond. Long weekend — falls on a Friday this year.'}
   ]
 },
 {
   key:'sep', name:'September', lunar:'Bhadrapada – Ashwina', num:'09',
   events:[
-    {type:'festival', date:'2026-09-04', day:'Fri', name:'Krishna Janmashtami', desc:'Birth of Lord Krishna.'},
+    {type:'festival', date:'2026-09-04', day:'Fri', name:'Krishna Janmashtami', desc:'Grand celebration marking the birth of Lord Krishna, the eighth avatar of Vishnu.'},
     {type:'ekadashi', date:'2026-09-07', day:'Mon', name:'Aja Ekadashi', time:'Begins 7:29 PM Sep 6 — Ends 5:03 PM Sep 7'},
     {type:'amavasya', date:'2026-09-11', day:'Fri', name:'Bhadrapada Amavasya', time:'Begins 10:33 AM — Ends 8:56 AM Sep 11'},
-    {type:'festival', date:'2026-09-14', day:'Mon', name:'Ganesh Chaturthi', desc:'Ganesh Visarjan on Sep 24.'},
+    {type:'festival', date:'2026-09-14', day:'Mon', name:'Ganesh Chaturthi', desc:'Celebrates the birth of Lord Ganesha, the god of wisdom and the remover of obstacles. Ganesh Visarjan on Sep 24.'},
     {type:'ekadashi', date:'2026-09-22', day:'Tue', name:'Parivartini Ekadashi', time:'Begins 8:00 PM Sep 21 — Ends 9:43 PM Sep 22'},
     {type:'purnima', date:'2026-09-26', day:'Sat', name:'Bhadrapada Purnima', time:'Begins 11:06 PM Sep 25 — Ends 10:18 PM Sep 26', desc:'Pitru Paksha begins.'}
   ]
@@ -371,7 +465,7 @@ const MONTHS = [
   key:'oct', name:'October', lunar:'Ashwina – Kartika', num:'10',
   events:[
     {type:'ekadashi', date:'2026-10-06', day:'Tue', name:'Indira Ekadashi', time:'Begins 2:07 AM — Ends 12:34 AM Oct 7'},
-    {type:'amavasya', date:'2026-10-10', day:'Sat', name:'Mahalaya Amavasya', time:'Begins 9:35 PM Oct 9 — Ends 9:19 PM Oct 10', desc:'Pitru Paksha ends.'},
+    {type:'amavasya', date:'2026-10-10', day:'Sat', name:'Mahalaya Amavasya', time:'Begins 9:35 PM Oct 9 — Ends 9:19 PM Oct 10', desc:'Pitru Paksha ends. A highly significant day for offering homage and food to ancestral spirits (Tarpan).'},
     {type:'festival', date:'2026-10-12', day:'Mon', name:'Sharad Navratri begins', desc:'Nine nights of Goddess Durga.'},
     {type:'festival', date:'2026-10-20', day:'Tue', name:'Dussehra (Vijayadashami)', desc:'Victory of good over evil.'},
     {type:'ekadashi', date:'2026-10-21', day:'Wed', name:'Papankusha Ekadashi', time:'Begins 2:11 PM — Ends 2:47 PM Oct 22'},
@@ -387,7 +481,7 @@ const MONTHS = [
     {type:'amavasya', date:'2026-11-08', day:'Sun', name:'Diwali (Lakshmi Puja) / Kartika Amavasya', time:'Begins 11:27 AM Nov 8 — Ends 12:31 PM Nov 9', desc:'The main festival of lights.'},
     {type:'festival', date:'2026-11-11', day:'Wed', name:'Bhai Dooj', desc:'Celebrating the sister-brother bond.'},
     {type:'festival', date:'2026-11-15', day:'Sun', name:'Chhath Puja', desc:'Sun worship, prominent in Bihar and eastern UP.'},
-    {type:'ekadashi', date:'2026-11-20', day:'Fri', name:'Devutthana Ekadashi / Tulsi Vivah', time:'Begins 7:15 AM — Ends 6:31 AM Nov 21', desc:'Wedding season resumes.'},
+    {type:'ekadashi', date:'2026-11-20', day:'Fri', name:'Devutthana Ekadashi / Tulsi Vivah', time:'Begins 7:15 AM — Ends 6:31 AM Nov 21', desc:'Wedding season resumes. Lord Vishnu awakens from his four-month sleep.'},
     {type:'purnima', date:'2026-11-24', day:'Tue', name:'Kartika Purnima', time:'Begins 11:42 PM Nov 23 — Ends 8:23 PM Nov 24'}
   ]
 },
@@ -405,9 +499,17 @@ const MONTHS = [
 
 const nav = document.getElementById('monthNav');
 const monthsEl = document.getElementById('months');
-const moonStrip = document.getElementById('moonStrip');
+const searchInput = document.getElementById('searchInput');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const noResults = document.getElementById('noResults');
 
-MONTHS.forEach((m, idx)=>{
+// Utility to create a URL-friendly slug
+function createSlug(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+}
+
+// 1. Render the Calendar
+MONTHS.forEach((m) => {
   const a = document.createElement('a');
   a.href = '#' + m.key;
   a.textContent = m.name;
@@ -419,15 +521,44 @@ MONTHS.forEach((m, idx)=>{
   sec.id = m.key;
 
   let rowsHtml = '';
-  m.events.forEach(ev=>{
+  m.events.forEach((ev) => {
     const dateObj = new Date(ev.date + 'T00:00:00');
     const dayNum = dateObj.getDate();
+    const eventId = createSlug(ev.name);
+    
+    // Fallback descriptions for lunar phases if no specific description is provided
+    let finalDesc = ev.desc;
+    if (!finalDesc) {
+      if (ev.type === 'ekadashi') {
+        finalDesc = 'Ekadashi is the 11th lunar day of a lunar phase, dedicated to Lord Vishnu. Fasting on this day is believed to cleanse the mind and body of sins and bestow spiritual merit.';
+      } else if (ev.type === 'amavasya') {
+        finalDesc = 'Amavasya marks the new moon day. It is a highly significant day for honoring ancestors, performing charity, and engaging in deep spiritual meditation.';
+      } else if (ev.type === 'purnima') {
+        finalDesc = 'Purnima is the full moon day. It is considered highly auspicious for fasting, taking holy dips in sacred rivers, and worshipping deities like Lord Vishnu, Shiva, or Goddess Lakshmi.';
+      }
+    }
+
+    // Add Expandable Accordion if description exists
+    let accordionHtml = '';
+    if(finalDesc) {
+      accordionHtml = `
+        <button class="toggle-btn" aria-expanded="false">Significance & Info</button>
+        <div class="accordion-content">
+          <div class="why-text">${finalDesc}</div>
+          <div class="event-nav">
+             <button class="nav-btn prev-btn">← Prev Event</button>
+             <button class="nav-btn next-btn">Next Event →</button>
+          </div>
+        </div>
+      `;
+    }
+
     rowsHtml += `
-      <div class="event-row ${ev.type}">
+      <div class="event-row ${ev.type} visible" id="${eventId}" data-name="${ev.name}" data-type="${ev.type}">
         <div class="event-date"><div class="d">${dayNum}</div><div class="w">${ev.day}</div></div>
         <div class="event-body">
           <div class="event-name"><span class="event-tag">${ev.type}</span>${ev.name}</div>
-          ${ev.desc ? `<div class="event-desc">${ev.desc}</div>` : ''}
+          ${accordionHtml}
         </div>
         <div class="event-time">${ev.time ? ev.time : ''}</div>
       </div>`;
@@ -439,17 +570,110 @@ MONTHS.forEach((m, idx)=>{
       <h2>${m.name} 2026</h2>
       <span class="lunar-name mono">${m.lunar}</span>
     </div>
-    ${rowsHtml}
+    <div class="month-events">${rowsHtml}</div>
   `;
-  monthsEl.appendChild(sec);
-
-  // moon strip dot
-  const dot = document.createElement('div');
-  dot.className = 'moon-dot' + (idx % 2 === 0 ? ' full' : ' new');
-  moonStrip.appendChild(dot);
+  // Insert before noResults
+  monthsEl.insertBefore(sec, noResults);
 });
 
-// scroll-spy for nav
+// 2. Search & Filter Logic
+function applyFilters() {
+  const query = searchInput.value.toLowerCase();
+  const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+  let visibleCount = 0;
+
+  document.querySelectorAll('.event-row').forEach(row => {
+    const name = row.dataset.name.toLowerCase();
+    const type = row.dataset.type;
+    const matchesQuery = name.includes(query);
+    const matchesFilter = activeFilter === 'all' || type === activeFilter;
+
+    if (matchesQuery && matchesFilter) {
+      row.style.display = 'grid';
+      row.classList.add('visible');
+      visibleCount++;
+    } else {
+      row.style.display = 'none';
+      row.classList.remove('visible');
+    }
+  });
+
+  // Hide empty months
+  document.querySelectorAll('.month-section').forEach(sec => {
+    const hasVisible = sec.querySelectorAll('.event-row.visible').length > 0;
+    sec.style.display = hasVisible ? 'block' : 'none';
+  });
+
+  noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+searchInput.addEventListener('input', applyFilters);
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    e.target.classList.add('active');
+    applyFilters();
+  });
+});
+
+// 3. Accordion & Next/Prev Event Navigation
+monthsEl.addEventListener('click', (e) => {
+  // Accordion Toggle
+  if (e.target.closest('.toggle-btn')) {
+    const row = e.target.closest('.event-row');
+    const isExpanded = row.classList.contains('expanded');
+    
+    // Close others
+    document.querySelectorAll('.event-row.expanded').forEach(r => {
+      if(r !== row) r.classList.remove('expanded');
+    });
+    
+    row.classList.toggle('expanded');
+    
+    // Update URL Hash without jumping
+    if (!isExpanded) {
+      history.replaceState(null, null, '#' + row.id);
+    }
+  }
+  
+  // Prev / Next Navigation
+  if (e.target.closest('.nav-btn')) {
+    const currentRow = e.target.closest('.event-row');
+    const visibleRows = Array.from(document.querySelectorAll('.event-row.visible'));
+    const currentIndex = visibleRows.indexOf(currentRow);
+    const direction = e.target.classList.contains('next-btn') ? 1 : -1;
+    
+    const targetRow = visibleRows[currentIndex + direction];
+    
+    if (targetRow) {
+      currentRow.classList.remove('expanded');
+      targetRow.classList.add('expanded');
+      
+      // Update Hash and Scroll
+      history.pushState(null, null, '#' + targetRow.id);
+      targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      targetRow.classList.add('target-highlight');
+      setTimeout(() => targetRow.classList.remove('target-highlight'), 1500);
+    }
+  }
+});
+
+// 4. URL Hash Support on Load
+window.addEventListener('DOMContentLoaded', () => {
+  if(window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if(target && target.classList.contains('event-row')) {
+      target.classList.add('expanded', 'target-highlight');
+      setTimeout(() => {
+        target.scrollIntoView({behavior: 'smooth', block: 'center'});
+        setTimeout(() => target.classList.remove('target-highlight'), 1500);
+      }, 300);
+    }
+  }
+});
+
+// 5. Scroll-spy for Sticky Month Nav
 const links = Array.from(nav.querySelectorAll('a'));
 const sections = MONTHS.map(m=>document.getElementById(m.key));
 const observer = new IntersectionObserver((entries)=>{
@@ -458,6 +682,7 @@ const observer = new IntersectionObserver((entries)=>{
       links.forEach(l=>l.classList.remove('active'));
       const link = nav.querySelector(`a[data-key="${entry.target.id}"]`);
       if(link) link.classList.add('active');
+      link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest'});
     }
   });
 }, { rootMargin: '-40% 0px -55% 0px' });
