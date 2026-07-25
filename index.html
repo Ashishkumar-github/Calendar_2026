@@ -27,7 +27,6 @@
   .display{font-family:'Yatra One', cursive;}
   .mono{font-family:'JetBrains Mono', monospace;}
 
-  /* subtle paper texture via layered radial dots */
   body::before{
     content:'';
     position: fixed; inset:0;
@@ -82,7 +81,7 @@
   }
   .hero-meta span b{ color: var(--paper); font-weight:600; }
 
-  /* ===== CONTROLS (SEARCH & FILTERS) ===== */
+  /* ===== CONTROLS ===== */
   .controls-section {
     background: var(--paper);
     padding: 20px 6vw;
@@ -95,12 +94,17 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centered horizontally */
+    align-items: center; 
     gap: 16px;
   }
-  .search-box {
+  .top-controls {
+    display: flex;
+    gap: 12px;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
+  }
+  .search-box {
+    flex: 1;
     padding: 12px 18px;
     border: 1px solid var(--gold);
     border-radius: 30px;
@@ -111,13 +115,23 @@
     outline: none;
     transition: box-shadow 0.2s;
   }
-  .search-box:focus {
-    box-shadow: 0 0 0 3px rgba(212,160,23,0.2);
+  .search-box:focus { box-shadow: 0 0 0 3px rgba(212,160,23,0.2); }
+  .lang-select {
+    padding: 0 16px;
+    border: 1px solid var(--gold);
+    border-radius: 30px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: rgba(255,255,255,0.9);
+    cursor: pointer;
+    outline: none;
   }
+  
   .filters {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Centered filters */
+    justify-content: center;
     gap: 8px;
   }
   .filter-btn {
@@ -147,11 +161,11 @@
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--line);
     display:flex; 
-    flex-wrap: wrap; /* Wraps items seamlessly based on screen size */
+    flex-wrap: wrap; 
     padding: 8px 4vw;
     gap: 4px;
     box-shadow: 0 2px 10px rgba(42,32,22,0.05);
-    justify-content: center; /* Center the navigation items */
+    justify-content: center; 
   }
   .month-nav a{
     flex: 0 0 auto;
@@ -178,9 +192,9 @@
   .month-section{ padding-top: 46px; scroll-margin-top: 150px; }
   .month-head{
     display:flex; align-items:baseline; justify-content:center; flex-wrap:wrap; gap: 16px; margin-bottom: 6px;
-    position:relative;border:none;padding-bottom:22px; text-align:center; /* Centered month titles */
+    position:relative;border:none;padding-bottom:22px; text-align:center;
   }
-  .month-head::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:120px;height:4px;border-radius:10px;background:linear-gradient(90deg,#E85D04,#FFD54F,#7B2CBF);} /* Centered underline */
+  .month-head::after{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:120px;height:4px;border-radius:10px;background:linear-gradient(90deg,#E85D04,#FFD54F,#7B2CBF);} 
   .month-head .num{
     font-family:'JetBrains Mono', monospace; font-size:0.85rem; color: var(--gold);
   }
@@ -193,7 +207,6 @@
     font-family:'JetBrains Mono', monospace; font-size:0.75rem; color: var(--ink-soft);
   }
 
-  /* Target Highlight Animation */
   @keyframes highlightPulse {
     0% { box-shadow: 0 0 0 0 rgba(212,160,23,0.7); }
     70% { box-shadow: 0 0 0 15px rgba(212,160,23,0); }
@@ -246,7 +259,6 @@
   .event-row.amavasya .event-tag{ background: var(--indigo); }
   .event-row.holiday .event-tag{ background: var(--holiday); }
 
-  /* Expandable Accordion CSS */
   .toggle-btn {
     background: none; border: none; cursor: pointer;
     font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
@@ -305,11 +317,11 @@
 
   @media (max-width: 640px){
     .event-row{ grid-template-columns: 50px 1fr; }
-    /* FIXED OVERFLOW: Added white-space: normal to allow wrapping */
     .event-time{ grid-column: 1 / -1; text-align:left; padding-left: 66px; white-space: normal; }
-    .month-head .lunar-name{ margin-left:0; flex-basis:100%; text-align: center; } /* Ensures lunar name wraps nicely to center */
+    .month-head .lunar-name{ margin-left:0; flex-basis:100%; text-align: center; } 
     .controls-inner { flex-direction: column; align-items: center; }
-    .search-box { max-width: 100%; }
+    .top-controls { flex-direction: column; max-width: 100%; }
+    .lang-select { padding: 12px 18px; }
   }
 
   /* ===== FOOTER ===== */
@@ -329,264 +341,349 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Vikram Samvat 2082–83 · Saka Samvat 1947–48</div>
-    <h1>हिंदू पंचांग 2026</h1>
-    <div class="hero-sub">A complete month-by-month guide to festivals, national holidays, Ekadashi, Purnima and Amavasya dates for the year.</div>
+    <div class="hero-eyebrow" data-i18n="eyebrow">Vikram Samvat 2082–83 · Saka Samvat 1947–48</div>
+    <h1 data-i18n="title">हिंदू पंचांग 2026</h1>
+    <div class="hero-sub" data-i18n="sub">A complete month-by-month guide to festivals, national holidays, Ekadashi, Purnima and Amavasya dates for the year.</div>
     <div class="hero-meta">
-      <span>Reference city: <b>Bengaluru, India (IST)</b></span>
-      <span>Adhik Maas: <b>May 17 – Jun 15</b></span>
+      <span data-i18n="metaCity">Reference city: <b>Bengaluru, India (IST)</b></span>
+      <span data-i18n="metaAdhik">Adhik Maas: <b>May 17 – Jun 15</b></span>
     </div>
   </div>
 </div>
 
 <div class="controls-section">
   <div class="controls-inner">
-    <input type="text" id="searchInput" class="search-box" placeholder="Search festivals (e.g., Diwali, Shiva, Ram)...">
+    <div class="top-controls">
+      <input type="text" id="searchInput" class="search-box" data-i18n-ph="searchPlaceholder" placeholder="Search festivals (e.g., Diwali, Shiva, Ram)...">
+      <select id="langSelect" class="lang-select">
+        <option value="en">English</option>
+        <option value="hi">हिंदी</option>
+      </select>
+    </div>
     <div class="filters" id="filters">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="festival">Festival</button>
-      <button class="filter-btn" data-filter="holiday">National Holiday</button>
-      <button class="filter-btn" data-filter="ekadashi">Ekadashi</button>
-      <button class="filter-btn" data-filter="purnima">Purnima</button>
-      <button class="filter-btn" data-filter="amavasya">Amavasya</button>
+      <button class="filter-btn active" data-filter="all" data-i18n="filterAll">All</button>
+      <button class="filter-btn" data-filter="festival" data-i18n="filterFestival">Festival</button>
+      <button class="filter-btn" data-filter="holiday" data-i18n="filterHoliday">National Holiday</button>
+      <button class="filter-btn" data-filter="ekadashi" data-i18n="filterEkadashi">Ekadashi</button>
+      <button class="filter-btn" data-filter="purnima" data-i18n="filterPurnima">Purnima</button>
+      <button class="filter-btn" data-filter="amavasya" data-i18n="filterAmavasya">Amavasya</button>
     </div>
   </div>
 </div>
 
 <nav class="month-nav" id="monthNav"></nav>
 
-<div class="months" id="months">
-  <div id="noResults" class="no-results">No events found matching your search.</div>
+<div class="months">
+  <div id="monthsContainer"></div>
+  <div id="noResults" class="no-results" data-i18n="noResults">No events found matching your search.</div>
 </div>
 
 <footer>
-  <div class="fmark">॥ शुभम् भवतु ॥</div>
-  Times shown are calculated for Bengaluru, India (IST) and rounded to the minute. Tithi timings shift with location — for anything time-critical, please confirm against a panchang set to your exact city closer to the date.<br><br>
-  Updated 2026
+  <div class="fmark" data-i18n="footerMark">॥ शुभम् भवतु ॥</div>
+  <span data-i18n="footerText">Times shown are calculated for Bengaluru, India (IST) and rounded to the minute. Tithi timings shift with location — for anything time-critical, please confirm against a panchang set to your exact city closer to the date.<br><br>Updated 2026</span>
 </footer>
 
 <script>
+// --- UI Translations ---
+const i18n = {
+  en: {
+    eyebrow: "Vikram Samvat 2082–83 · Saka Samvat 1947–48",
+    title: "Hindu Panchang 2026",
+    sub: "A complete month-by-month guide to festivals, national holidays, Ekadashi, Purnima and Amavasya dates for the year.",
+    metaCity: "Reference city: <b>Bengaluru, India (IST)</b>",
+    metaAdhik: "Adhik Maas: <b>May 17 – Jun 15</b>",
+    searchPlaceholder: "Search festivals (e.g., Diwali, Shiva, Ram)...",
+    filterAll: "All", filterFestival: "Festival", filterHoliday: "National Holiday", filterEkadashi: "Ekadashi", filterPurnima: "Purnima", filterAmavasya: "Amavasya",
+    footerMark: "॥ शुभम् भवतु ॥",
+    footerText: "Times shown are calculated for Bengaluru, India (IST) and rounded to the minute. Tithi timings shift with location — for anything time-critical, please confirm against a panchang set to your exact city closer to the date.<br><br>Updated 2026",
+    noResults: "No events found matching your search.",
+    sigInfo: "Significance & Info", prevEvent: "← Prev Event", nextEvent: "Next Event →",
+    fallbackEkadashi: "Ekadashi is the 11th lunar day of a lunar phase, dedicated to Lord Vishnu. Fasting on this day is believed to cleanse the mind and body of sins and bestow spiritual merit.",
+    fallbackAmavasya: "Amavasya marks the new moon day. It is a highly significant day for honoring ancestors, performing charity, and engaging in deep spiritual meditation.",
+    fallbackPurnima: "Purnima is the full moon day. It is considered highly auspicious for fasting, taking holy dips in sacred rivers, and worshipping deities like Lord Vishnu, Shiva, or Goddess Lakshmi."
+  },
+  hi: {
+    eyebrow: "विक्रम संवत 2082–83 · शक संवत 1947–48",
+    title: "हिंदू पंचांग 2026",
+    sub: "त्योहारों, राष्ट्रीय अवकाशों, एकादशी, पूर्णिमा और अमावस्या तिथियों का संपूर्ण मासिक मार्गदर्शन।",
+    metaCity: "संदर्भ शहर: <b>बेंगलुरु, भारत (IST)</b>",
+    metaAdhik: "अधिक मास: <b>17 मई – 15 जून</b>",
+    searchPlaceholder: "त्योहार खोजें (उदा., दिवाली, शिव, राम)...",
+    filterAll: "सभी", filterFestival: "त्योहार", filterHoliday: "राष्ट्रीय अवकाश", filterEkadashi: "एकादशी", filterPurnima: "पूर्णिमा", filterAmavasya: "अमावस्या",
+    footerMark: "॥ शुभम् भवतु ॥",
+    footerText: "दिखाया गया समय बेंगलुरु, भारत (IST) के अनुसार है। तिथि का समय स्थान के साथ बदलता है — किसी भी महत्वपूर्ण अनुष्ठान के लिए कृपया अपने शहर के पंचांग से पुष्टि करें।<br><br>अद्यतन 2026",
+    noResults: "आपकी खोज से मेल खाने वाला कोई ईवेंट नहीं मिला।",
+    sigInfo: "महत्व और जानकारी", prevEvent: "← पिछला ईवेंट", nextEvent: "अगला ईवेंट →",
+    fallbackEkadashi: "एकादशी भगवान विष्णु को समर्पित है। माना जाता है कि इस दिन उपवास करने से शरीर और मन पापों से मुक्त हो जाते हैं और आध्यात्मिक पुण्य प्राप्त होता है।",
+    fallbackAmavasya: "अमावस्या नए चाँद का दिन है। यह पूर्वजों का सम्मान करने, दान करने और आध्यात्मिक ध्यान में संलग्न होने के लिए अत्यधिक महत्वपूर्ण दिन है।",
+    fallbackPurnima: "पूर्णिमा पूर्ण चंद्रमा का दिन है। इसे उपवास, पवित्र नदियों में स्नान और भगवान विष्णु, शिव या देवी लक्ष्मी की पूजा के लिए अत्यधिक शुभ माना जाता है।"
+  }
+};
+
+const dayI18n = { 'Sun':'रवि', 'Mon':'सोम', 'Tue':'मंगल', 'Wed':'बुध', 'Thu':'गुरु', 'Fri':'शुक्र', 'Sat':'शनि' };
+const typeI18n = { 'festival': 'त्योहार', 'holiday': 'अवकाश', 'ekadashi': 'एकादशी', 'purnima': 'पूर्णिमा', 'amavasya': 'अमावस्या' };
+
+// --- Calendar Data (En & Hi) ---
 const MONTHS = [
 {
-  key:'jan', name:'January', lunar:'Paush – Magha', num:'01',
+  key:'jan', name:'January', name_hi:'जनवरी', lunar:'Paush – Magha', lunar_hi:'पौष – माघ', num:'01',
   events:[
-    {type:'purnima', date:'2026-01-03', day:'Sat', name:'Paush Purnima', time:'Begins 6:53 PM Jan 2 — Ends 3:32 PM Jan 3'},
-    {type:'ekadashi', date:'2026-01-14', day:'Wed', name:'Shattila Ekadashi', time:'Begins 3:17 PM Jan 13 — Ends 5:52 PM Jan 14'},
-    {type:'festival', date:'2026-01-14', day:'Wed', name:'Makar Sankranti / Pongal / Uttarayan', desc:'Sun\'s transit into Capricorn — kite flying, sesame sweets, harvest festival.'},
-    {type:'amavasya', date:'2026-01-18', day:'Sun', name:'Mauni Amavasya', time:'Begins 12:03 AM — Ends 1:21 AM Jan 19'},
-    {type:'festival', date:'2026-01-23', day:'Fri', name:'Vasant Panchami', desc:'Saraswati Puja — worship of the goddess of learning and the arts.'},
-    {type:'holiday', date:'2026-01-26', day:'Mon', name:'Republic Day', desc:'National holiday commemorating the adoption of the Constitution.'},
-    {type:'ekadashi', date:'2026-01-29', day:'Thu', name:'Jaya Ekadashi', time:'Begins 4:35 PM Jan 28 — Ends 1:55 PM Jan 29'}
+    {type:'purnima', date:'2026-01-03', day:'Sat', name:'Paush Purnima', name_hi:'पौष पूर्णिमा', time:'Begins 6:53 PM Jan 2 — Ends 3:32 PM Jan 3'},
+    {type:'ekadashi', date:'2026-01-14', day:'Wed', name:'Shattila Ekadashi', name_hi:'षटतिला एकादशी', time:'Begins 3:17 PM Jan 13 — Ends 5:52 PM Jan 14'},
+    {type:'festival', date:'2026-01-14', day:'Wed', name:'Makar Sankranti / Pongal / Uttarayan', name_hi:'मकर संक्रांति / पोंगल / उत्तरायण', desc:'Sun\'s transit into Capricorn — kite flying, sesame sweets, harvest festival.', desc_hi:'सूर्य का मकर राशि में प्रवेश — पतंगबाजी, तिल की मिठाई, फसल उत्सव।'},
+    {type:'amavasya', date:'2026-01-18', day:'Sun', name:'Mauni Amavasya', name_hi:'मौनी अमावस्या', time:'Begins 12:03 AM — Ends 1:21 AM Jan 19'},
+    {type:'festival', date:'2026-01-23', day:'Fri', name:'Vasant Panchami', name_hi:'वसंत पंचमी', desc:'Saraswati Puja — worship of the goddess of learning and the arts.', desc_hi:'सरस्वती पूजा — विद्या और कला की देवी की पूजा।'},
+    {type:'holiday', date:'2026-01-26', day:'Mon', name:'Republic Day', name_hi:'गणतंत्र दिवस', desc:'National holiday commemorating the adoption of the Constitution.', desc_hi:'संविधान लागू होने की स्मृति में राष्ट्रीय अवकाश।'},
+    {type:'ekadashi', date:'2026-01-29', day:'Thu', name:'Jaya Ekadashi', name_hi:'जया एकादशी', time:'Begins 4:35 PM Jan 28 — Ends 1:55 PM Jan 29'}
   ]
 },
 {
-  key:'feb', name:'February', lunar:'Magha – Phalguna', num:'02',
+  key:'feb', name:'February', name_hi:'फरवरी', lunar:'Magha – Phalguna', lunar_hi:'माघ – फाल्गुन', num:'02',
   events:[
-    {type:'purnima', date:'2026-02-01', day:'Sun', name:'Magha Purnima', time:'Begins 5:52 AM — Ends 3:38 AM Feb 2'},
-    {type:'ekadashi', date:'2026-02-13', day:'Fri', name:'Vijaya Ekadashi', time:'Begins 12:22 PM Feb 12 — Ends 2:25 PM Feb 13'},
-    {type:'festival', date:'2026-02-15', day:'Sun', name:'Maha Shivaratri', desc:'The great night of Shiva — fasting and night-long vigil.'},
-    {type:'amavasya', date:'2026-02-17', day:'Tue', name:'Phalguna Amavasya', time:'Begins 5:34 PM Feb 16 — Ends 5:30 PM Feb 17'},
-    {type:'ekadashi', date:'2026-02-27', day:'Fri', name:'Amalaki Ekadashi', time:'Begins 12:33 AM — Ends 10:32 PM Feb 27'}
+    {type:'purnima', date:'2026-02-01', day:'Sun', name:'Magha Purnima', name_hi:'माघ पूर्णिमा', time:'Begins 5:52 AM — Ends 3:38 AM Feb 2'},
+    {type:'ekadashi', date:'2026-02-13', day:'Fri', name:'Vijaya Ekadashi', name_hi:'विजया एकादशी', time:'Begins 12:22 PM Feb 12 — Ends 2:25 PM Feb 13'},
+    {type:'festival', date:'2026-02-15', day:'Sun', name:'Maha Shivaratri', name_hi:'महा शिवरात्रि', desc:'The great night of Shiva — fasting and night-long vigil.', desc_hi:'शिव की महान रात्रि — उपवास और रात भर जागरण।'},
+    {type:'amavasya', date:'2026-02-17', day:'Tue', name:'Phalguna Amavasya', name_hi:'फाल्गुन अमावस्या', time:'Begins 5:34 PM Feb 16 — Ends 5:30 PM Feb 17'},
+    {type:'ekadashi', date:'2026-02-27', day:'Fri', name:'Amalaki Ekadashi', name_hi:'आमलकी एकादशी', time:'Begins 12:33 AM — Ends 10:32 PM Feb 27'}
   ]
 },
 {
-  key:'mar', name:'March', lunar:'Phalguna – Chaitra', num:'03',
+  key:'mar', name:'March', name_hi:'मार्च', lunar:'Phalguna – Chaitra', lunar_hi:'फाल्गुन – चैत्र', num:'03',
   events:[
-    {type:'purnima', date:'2026-03-03', day:'Tue', name:'Phalguna Purnima / Holika Dahan', time:'Begins 5:55 PM Mar 2 — Ends 5:07 PM Mar 3', desc: 'Bonfires are lit to symbolize the burning of the demoness Holika, representing the victory of good over evil.'},
-    {type:'festival', date:'2026-03-04', day:'Wed', name:'Holi (Dhulandi)', desc:'Festival of colours, celebrating the eternal and divine love of Radha Krishna.'},
-    {type:'ekadashi', date:'2026-03-15', day:'Sun', name:'Papmochani Ekadashi', time:'Begins 8:10 AM Mar 14 — Ends 9:16 AM Mar 15'},
-    {type:'amavasya', date:'2026-03-18', day:'Wed', name:'Chaitra Amavasya', time:'Begins 8:25 AM — Ends 6:52 AM Mar 19'},
-    {type:'festival', date:'2026-03-19', day:'Thu', name:'Chaitra Navratri begins / Ugadi / Gudi Padwa', desc:'Hindu New Year for several regional calendars.'},
-    {type:'festival', date:'2026-03-27', day:'Fri', name:'Ram Navami', desc:'Birth anniversary of Lord Rama.'},
-    {type:'ekadashi', date:'2026-03-29', day:'Sun', name:'Kamada Ekadashi', time:'Begins 8:45 AM Mar 28 — Ends 7:46 AM Mar 29'}
+    {type:'purnima', date:'2026-03-03', day:'Tue', name:'Phalguna Purnima / Holika Dahan', name_hi:'फाल्गुन पूर्णिमा / होलिका दहन', time:'Begins 5:55 PM Mar 2 — Ends 5:07 PM Mar 3', desc: 'Bonfires are lit to symbolize the burning of the demoness Holika.', desc_hi: 'बुराई पर अच्छाई की जीत के प्रतीक के रूप में होलिका दहन किया जाता है।'},
+    {type:'festival', date:'2026-03-04', day:'Wed', name:'Holi (Dhulandi)', name_hi:'होली (धुलंडी)', desc:'Festival of colours, celebrating the eternal and divine love of Radha Krishna.', desc_hi:'रंगों का त्योहार, राधा कृष्ण के शाश्वत और दिव्य प्रेम का जश्न।'},
+    {type:'ekadashi', date:'2026-03-15', day:'Sun', name:'Papmochani Ekadashi', name_hi:'पापमोचिनी एकादशी', time:'Begins 8:10 AM Mar 14 — Ends 9:16 AM Mar 15'},
+    {type:'amavasya', date:'2026-03-18', day:'Wed', name:'Chaitra Amavasya', name_hi:'चैत्र अमावस्या', time:'Begins 8:25 AM — Ends 6:52 AM Mar 19'},
+    {type:'festival', date:'2026-03-19', day:'Thu', name:'Chaitra Navratri begins / Ugadi', name_hi:'चैत्र नवरात्रि प्रारंभ / उगादी', desc:'Hindu New Year for several regional calendars.', desc_hi:'कई क्षेत्रीय पंचांगों के लिए हिंदू नव वर्ष।'},
+    {type:'festival', date:'2026-03-27', day:'Fri', name:'Ram Navami', name_hi:'राम नवमी', desc:'Birth anniversary of Lord Rama.', desc_hi:'भगवान राम की जयंती।'},
+    {type:'ekadashi', date:'2026-03-29', day:'Sun', name:'Kamada Ekadashi', name_hi:'कामदा एकादशी', time:'Begins 8:45 AM Mar 28 — Ends 7:46 AM Mar 29'}
   ]
 },
 {
-  key:'apr', name:'April', lunar:'Chaitra – Vaishakha', num:'04',
+  key:'apr', name:'April', name_hi:'अप्रैल', lunar:'Chaitra – Vaishakha', lunar_hi:'चैत्र – वैशाख', num:'04',
   events:[
-    {type:'purnima', date:'2026-04-01', day:'Wed', name:'Chaitra Purnima / Hanuman Jayanti', time:'Begins 7:06 AM — Ends 7:41 AM Apr 2', desc: 'Celebrates the birth of Lord Hanuman, the Vanara god and devoted disciple of Lord Rama.'},
-    {type:'ekadashi', date:'2026-04-13', day:'Mon', name:'Varuthini Ekadashi', time:'Begins 1:16 AM — Ends 1:08 AM Apr 14'},
-    {type:'amavasya', date:'2026-04-17', day:'Fri', name:'Vaishakha Amavasya', time:'Begins 8:11 PM Apr 16 — Ends 5:21 PM Apr 17'},
-    {type:'festival', date:'2026-04-20', day:'Mon', name:'Akshaya Tritiya', desc:'Considered the most auspicious day for new beginnings and gold purchase.'},
-    {type:'ekadashi', date:'2026-04-27', day:'Mon', name:'Mohini Ekadashi', time:'Begins 6:06 PM Apr 26 — Ends 6:15 PM Apr 27'}
+    {type:'purnima', date:'2026-04-01', day:'Wed', name:'Chaitra Purnima / Hanuman Jayanti', name_hi:'चैत्र पूर्णिमा / हनुमान जयंती', time:'Begins 7:06 AM — Ends 7:41 AM Apr 2', desc: 'Celebrates the birth of Lord Hanuman.', desc_hi: 'भगवान हनुमान के जन्म का जश्न।'},
+    {type:'ekadashi', date:'2026-04-13', day:'Mon', name:'Varuthini Ekadashi', name_hi:'वरुथिनी एकादशी', time:'Begins 1:16 AM — Ends 1:08 AM Apr 14'},
+    {type:'amavasya', date:'2026-04-17', day:'Fri', name:'Vaishakha Amavasya', name_hi:'वैशाख अमावस्या', time:'Begins 8:11 PM Apr 16 — Ends 5:21 PM Apr 17'},
+    {type:'festival', date:'2026-04-20', day:'Mon', name:'Akshaya Tritiya', name_hi:'अक्षय तृतीया', desc:'Considered the most auspicious day for new beginnings and gold purchase.', desc_hi:'नई शुरुआत और सोना खरीदने के लिए सबसे शुभ दिन माना जाता है।'},
+    {type:'ekadashi', date:'2026-04-27', day:'Mon', name:'Mohini Ekadashi', name_hi:'मोहिनी एकादशी', time:'Begins 6:06 PM Apr 26 — Ends 6:15 PM Apr 27'}
   ]
 },
 {
-  key:'may', name:'May', lunar:'Vaishakha – Jyeshtha', num:'05',
+  key:'may', name:'May', name_hi:'मई', lunar:'Vaishakha – Jyeshtha', lunar_hi:'वैशाख – ज्येष्ठ', num:'05',
   events:[
-    {type:'purnima', date:'2026-05-01', day:'Fri', name:'Buddha Purnima / Vaishakha Purnima', time:'Begins 9:12 PM Apr 30 — Ends 10:52 PM May 1'},
-    {type:'ekadashi', date:'2026-05-13', day:'Wed', name:'Apara Ekadashi', time:'Begins 2:52 PM May 12 — Ends 1:29 PM May 13'},
-    {type:'amavasya', date:'2026-05-16', day:'Sat', name:'Jyeshtha Amavasya / Shani Jayanti', time:'Begins 5:11 AM — Ends 1:30 AM May 17'},
-    {type:'festival', date:'2026-05-17', day:'Sun', name:'Adhik Maas begins', desc:'Intercalary lunar month — no weddings or Griha Pravesh during this period, through Jun 15.'},
-    {type:'ekadashi', date:'2026-05-27', day:'Wed', name:'Padmini Ekadashi (Adhik)', time:'Begins 5:10 AM May 26 — Ends 6:21 AM May 27'},
-    {type:'purnima', date:'2026-05-31', day:'Sun', name:'Adhik Jyeshtha Purnima', time:'Begins 11:57 AM May 30 — Ends 2:14 PM May 31'}
+    {type:'purnima', date:'2026-05-01', day:'Fri', name:'Buddha Purnima / Vaishakha Purnima', name_hi:'बुद्ध पूर्णिमा / वैशाख पूर्णिमा', time:'Begins 9:12 PM Apr 30 — Ends 10:52 PM May 1'},
+    {type:'ekadashi', date:'2026-05-13', day:'Wed', name:'Apara Ekadashi', name_hi:'अपरा एकादशी', time:'Begins 2:52 PM May 12 — Ends 1:29 PM May 13'},
+    {type:'amavasya', date:'2026-05-16', day:'Sat', name:'Jyeshtha Amavasya / Shani Jayanti', name_hi:'ज्येष्ठ अमावस्या / शनि जयंती', time:'Begins 5:11 AM — Ends 1:30 AM May 17'},
+    {type:'festival', date:'2026-05-17', day:'Sun', name:'Adhik Maas begins', name_hi:'अधिक मास प्रारंभ', desc:'Intercalary lunar month — no weddings or Griha Pravesh during this period.', desc_hi:'अतिरिक्त चंद्र मास — इस अवधि के दौरान कोई विवाह या गृह प्रवेश नहीं।'},
+    {type:'ekadashi', date:'2026-05-27', day:'Wed', name:'Padmini Ekadashi (Adhik)', name_hi:'पद्मिनी एकादशी (अधिक)', time:'Begins 5:10 AM May 26 — Ends 6:21 AM May 27'},
+    {type:'purnima', date:'2026-05-31', day:'Sun', name:'Adhik Jyeshtha Purnima', name_hi:'अधिक ज्येष्ठ पूर्णिमा', time:'Begins 11:57 AM May 30 — Ends 2:14 PM May 31'}
   ]
 },
 {
-  key:'jun', name:'June', lunar:'Jyeshtha – Ashadha', num:'06',
+  key:'jun', name:'June', name_hi:'जून', lunar:'Jyeshtha – Ashadha', lunar_hi:'ज्येष्ठ – आषाढ़', num:'06',
   events:[
-    {type:'ekadashi', date:'2026-06-11', day:'Thu', name:'Parama Ekadashi (Adhik)', time:'Begins 12:57 AM — Ends 10:36 PM Jun 11'},
-    {type:'amavasya', date:'2026-06-15', day:'Mon', name:'Adhik Maas ends — Amavasya', time:'Begins 12:19 PM Jun 14 — Ends 8:23 AM Jun 15'},
-    {type:'ekadashi', date:'2026-06-25', day:'Thu', name:'Nirjala Ekadashi', time:'Begins 6:12 PM Jun 24 — Ends 8:09 PM Jun 25', desc:'The strictest Ekadashi — observed without food or water.'},
-    {type:'purnima', date:'2026-06-29', day:'Mon', name:'Vat Purnima / Jyeshtha Purnima', time:'Begins 3:06 AM — Ends 5:26 AM Jun 30'}
+    {type:'ekadashi', date:'2026-06-11', day:'Thu', name:'Parama Ekadashi (Adhik)', name_hi:'परमा एकादशी (अधिक)', time:'Begins 12:57 AM — Ends 10:36 PM Jun 11'},
+    {type:'amavasya', date:'2026-06-15', day:'Mon', name:'Adhik Maas ends — Amavasya', name_hi:'अधिक मास समाप्त — अमावस्या', time:'Begins 12:19 PM Jun 14 — Ends 8:23 AM Jun 15'},
+    {type:'ekadashi', date:'2026-06-25', day:'Thu', name:'Nirjala Ekadashi', name_hi:'निर्जला एकादशी', time:'Begins 6:12 PM Jun 24 — Ends 8:09 PM Jun 25', desc:'The strictest Ekadashi — observed without food or water.', desc_hi:'सबसे कठोर एकादशी — बिना अन्न-जल के मनाई जाती है।'},
+    {type:'purnima', date:'2026-06-29', day:'Mon', name:'Vat Purnima / Jyeshtha Purnima', name_hi:'वट पूर्णिमा / ज्येष्ठ पूर्णिमा', time:'Begins 3:06 AM — Ends 5:26 AM Jun 30'}
   ]
 },
 {
-  key:'jul', name:'July', lunar:'Ashadha – Shravana', num:'07',
+  key:'jul', name:'July', name_hi:'जुलाई', lunar:'Ashadha – Shravana', lunar_hi:'आषाढ़ – श्रावण', num:'07',
   events:[
-    {type:'ekadashi', date:'2026-07-10', day:'Fri', name:'Yogini Ekadashi', time:'Begins 8:16 AM — Ends 5:22 AM Jul 11'},
-    {type:'amavasya', date:'2026-07-14', day:'Tue', name:'Ashadha Amavasya', time:'Begins 6:49 PM Jul 13 — Ends 3:12 PM Jul 14'},
-    {type:'festival', date:'2026-07-16', day:'Thu', name:'Jagannath Rath Yatra', desc:'Chariot festival at Puri.'},
-    {type:'ekadashi', date:'2026-07-25', day:'Sat', name:'Devshayani Ekadashi', time:'Begins 9:12 AM Jul 24 — Ends 11:34 AM Jul 25', desc:'Chaturmas begins — Lord Vishnu\'s four-month yogic sleep.'},
-    {type:'purnima', date:'2026-07-29', day:'Wed', name:'Guru Purnima / Ashadha Purnima', time:'Begins 6:18 PM Jul 28 — Ends 8:05 PM Jul 29'}
+    {type:'ekadashi', date:'2026-07-10', day:'Fri', name:'Yogini Ekadashi', name_hi:'योगिनी एकादशी', time:'Begins 8:16 AM — Ends 5:22 AM Jul 11'},
+    {type:'amavasya', date:'2026-07-14', day:'Tue', name:'Ashadha Amavasya', name_hi:'आषाढ़ अमावस्या', time:'Begins 6:49 PM Jul 13 — Ends 3:12 PM Jul 14'},
+    {type:'festival', date:'2026-07-16', day:'Thu', name:'Jagannath Rath Yatra', name_hi:'जगन्नाथ रथ यात्रा', desc:'Chariot festival at Puri.', desc_hi:'पुरी में रथ यात्रा महोत्सव।'},
+    {type:'ekadashi', date:'2026-07-25', day:'Sat', name:'Devshayani Ekadashi', name_hi:'देवशयनी एकादशी', time:'Begins 9:12 AM Jul 24 — Ends 11:34 AM Jul 25', desc:'Chaturmas begins — Lord Vishnu\'s yogic sleep.', desc_hi:'चातुर्मास प्रारंभ — भगवान विष्णु की योग निद्रा।'},
+    {type:'purnima', date:'2026-07-29', day:'Wed', name:'Guru Purnima', name_hi:'गुरु पूर्णिमा', time:'Begins 6:18 PM Jul 28 — Ends 8:05 PM Jul 29'}
   ]
 },
 {
-  key:'aug', name:'August', lunar:'Shravana – Bhadrapada', num:'08',
+  key:'aug', name:'August', name_hi:'अगस्त', lunar:'Shravana – Bhadrapada', lunar_hi:'श्रावण – भाद्रपद', num:'08',
   events:[
-    {type:'ekadashi', date:'2026-08-09', day:'Sun', name:'Kamika Ekadashi', time:'Begins 1:59 PM Aug 8 — Ends 11:04 AM Aug 9'},
-    {type:'amavasya', date:'2026-08-12', day:'Wed', name:'Hariyali Amavasya', time:'Begins 1:52 AM — Ends 11:06 PM Aug 12'},
-    {type:'festival', date:'2026-08-18', day:'Tue', name:'Nag Panchami', desc:'Worship of serpent deities.'},
-    {type:'ekadashi', date:'2026-08-23', day:'Sun', name:'Shravana Putrada Ekadashi', time:'Begins 2:00 AM — Ends 4:18 AM Aug 24'},
-    {type:'purnima', date:'2026-08-28', day:'Fri', name:'Raksha Bandhan / Shravana Purnima', time:'Begins 9:08 AM Aug 27 — Ends 9:48 AM Aug 28', desc:'Celebrating the sister-brother bond. Long weekend — falls on a Friday this year.'}
+    {type:'ekadashi', date:'2026-08-09', day:'Sun', name:'Kamika Ekadashi', name_hi:'कामिका एकादशी', time:'Begins 1:59 PM Aug 8 — Ends 11:04 AM Aug 9'},
+    {type:'amavasya', date:'2026-08-12', day:'Wed', name:'Hariyali Amavasya', name_hi:'हरियाली अमावस्या', time:'Begins 1:52 AM — Ends 11:06 PM Aug 12'},
+    {type:'festival', date:'2026-08-18', day:'Tue', name:'Nag Panchami', name_hi:'नाग पंचमी', desc:'Worship of serpent deities.', desc_hi:'नाग देवताओं की पूजा।'},
+    {type:'ekadashi', date:'2026-08-23', day:'Sun', name:'Shravana Putrada Ekadashi', name_hi:'श्रावण पुत्रदा एकादशी', time:'Begins 2:00 AM — Ends 4:18 AM Aug 24'},
+    {type:'purnima', date:'2026-08-28', day:'Fri', name:'Raksha Bandhan / Shravana Purnima', name_hi:'रक्षा बंधन / श्रावण पूर्णिमा', time:'Begins 9:08 AM Aug 27 — Ends 9:48 AM Aug 28', desc:'Celebrating the sister-brother bond.', desc_hi:'भाई-बहन के बंधन का जश्न।'}
   ]
 },
 {
-  key:'sep', name:'September', lunar:'Bhadrapada – Ashwina', num:'09',
+  key:'sep', name:'September', name_hi:'सितंबर', lunar:'Bhadrapada – Ashwina', lunar_hi:'भाद्रपद – आश्विन', num:'09',
   events:[
-    {type:'festival', date:'2026-09-04', day:'Fri', name:'Krishna Janmashtami', desc:'Grand celebration marking the birth of Lord Krishna, the eighth avatar of Vishnu.'},
-    {type:'ekadashi', date:'2026-09-07', day:'Mon', name:'Aja Ekadashi', time:'Begins 7:29 PM Sep 6 — Ends 5:03 PM Sep 7'},
-    {type:'amavasya', date:'2026-09-11', day:'Fri', name:'Bhadrapada Amavasya', time:'Begins 10:33 AM — Ends 8:56 AM Sep 11'},
-    {type:'festival', date:'2026-09-14', day:'Mon', name:'Ganesh Chaturthi', desc:'Celebrates the birth of Lord Ganesha, the god of wisdom and the remover of obstacles. Ganesh Visarjan on Sep 24.'},
-    {type:'ekadashi', date:'2026-09-22', day:'Tue', name:'Parivartini Ekadashi', time:'Begins 8:00 PM Sep 21 — Ends 9:43 PM Sep 22'},
-    {type:'purnima', date:'2026-09-26', day:'Sat', name:'Bhadrapada Purnima', time:'Begins 11:06 PM Sep 25 — Ends 10:18 PM Sep 26', desc:'Pitru Paksha begins.'}
+    {type:'festival', date:'2026-09-04', day:'Fri', name:'Krishna Janmashtami', name_hi:'कृष्ण जन्माष्टमी', desc:'Grand celebration marking the birth of Lord Krishna.', desc_hi:'भगवान कृष्ण के जन्म का भव्य उत्सव।'},
+    {type:'ekadashi', date:'2026-09-07', day:'Mon', name:'Aja Ekadashi', name_hi:'अजा एकादशी', time:'Begins 7:29 PM Sep 6 — Ends 5:03 PM Sep 7'},
+    {type:'amavasya', date:'2026-09-11', day:'Fri', name:'Bhadrapada Amavasya', name_hi:'भाद्रपद अमावस्या', time:'Begins 10:33 AM — Ends 8:56 AM Sep 11'},
+    {type:'festival', date:'2026-09-14', day:'Mon', name:'Ganesh Chaturthi', name_hi:'गणेश चतुर्थी', desc:'Celebrates the birth of Lord Ganesha.', desc_hi:'भगवान गणेश के जन्म का जश्न।'},
+    {type:'ekadashi', date:'2026-09-22', day:'Tue', name:'Parivartini Ekadashi', name_hi:'परिवर्तिनी एकादशी', time:'Begins 8:00 PM Sep 21 — Ends 9:43 PM Sep 22'},
+    {type:'purnima', date:'2026-09-26', day:'Sat', name:'Bhadrapada Purnima', name_hi:'भाद्रपद पूर्णिमा', time:'Begins 11:06 PM Sep 25 — Ends 10:18 PM Sep 26', desc:'Pitru Paksha begins.', desc_hi:'पितृ पक्ष प्रारंभ।'}
   ]
 },
 {
-  key:'oct', name:'October', lunar:'Ashwina – Kartika', num:'10',
+  key:'oct', name:'October', name_hi:'अक्टूबर', lunar:'Ashwina – Kartika', lunar_hi:'आश्विन – कार्तिक', num:'10',
   events:[
-    {type:'ekadashi', date:'2026-10-06', day:'Tue', name:'Indira Ekadashi', time:'Begins 2:07 AM — Ends 12:34 AM Oct 7'},
-    {type:'amavasya', date:'2026-10-10', day:'Sat', name:'Mahalaya Amavasya', time:'Begins 9:35 PM Oct 9 — Ends 9:19 PM Oct 10', desc:'Pitru Paksha ends. A highly significant day for offering homage and food to ancestral spirits (Tarpan).'},
-    {type:'festival', date:'2026-10-12', day:'Mon', name:'Sharad Navratri begins', desc:'Nine nights of Goddess Durga.'},
-    {type:'festival', date:'2026-10-20', day:'Tue', name:'Dussehra (Vijayadashami)', desc:'Victory of good over evil.'},
-    {type:'ekadashi', date:'2026-10-21', day:'Wed', name:'Papankusha Ekadashi', time:'Begins 2:11 PM — Ends 2:47 PM Oct 22'},
-    {type:'purnima', date:'2026-10-25', day:'Sun', name:'Sharad Purnima', time:'Begins 11:55 AM — Ends 9:41 AM Oct 26'},
-    {type:'festival', date:'2026-10-29', day:'Thu', name:'Karwa Chauth', desc:'Married women fast for their husbands\' longevity.'}
+    {type:'ekadashi', date:'2026-10-06', day:'Tue', name:'Indira Ekadashi', name_hi:'इंदिरा एकादशी', time:'Begins 2:07 AM — Ends 12:34 AM Oct 7'},
+    {type:'amavasya', date:'2026-10-10', day:'Sat', name:'Mahalaya Amavasya', name_hi:'महालय अमावस्या', time:'Begins 9:35 PM Oct 9 — Ends 9:19 PM Oct 10', desc:'Pitru Paksha ends. A highly significant day for offering homage to ancestors.', desc_hi:'पितृ पक्ष समाप्त। पूर्वजों को श्रद्धांजलि अर्पित करने के लिए एक अत्यधिक महत्वपूर्ण दिन।'},
+    {type:'festival', date:'2026-10-12', day:'Mon', name:'Sharad Navratri begins', name_hi:'शारदीय नवरात्रि प्रारंभ', desc:'Nine nights of Goddess Durga.', desc_hi:'देवी दुर्गा की नौ रातें।'},
+    {type:'festival', date:'2026-10-20', day:'Tue', name:'Dussehra (Vijayadashami)', name_hi:'दशहरा (विजयादशमी)', desc:'Victory of good over evil.', desc_hi:'बुराई पर अच्छाई की जीत।'},
+    {type:'ekadashi', date:'2026-10-21', day:'Wed', name:'Papankusha Ekadashi', name_hi:'पापांकुशा एकादशी', time:'Begins 2:11 PM — Ends 2:47 PM Oct 22'},
+    {type:'purnima', date:'2026-10-25', day:'Sun', name:'Sharad Purnima', name_hi:'शरद पूर्णिमा', time:'Begins 11:55 AM — Ends 9:41 AM Oct 26'},
+    {type:'festival', date:'2026-10-29', day:'Thu', name:'Karwa Chauth', name_hi:'करवा चौथ', desc:'Married women fast for their husbands\' longevity.', desc_hi:'विवाहित महिलाएं अपने पति की लंबी उम्र के लिए उपवास करती हैं।'}
   ]
 },
 {
-  key:'nov', name:'November', lunar:'Kartika – Margashirsha', num:'11',
+  key:'nov', name:'November', name_hi:'नवंबर', lunar:'Kartika – Margashirsha', lunar_hi:'कार्तिक – मार्गशीर्ष', num:'11',
   events:[
-    {type:'ekadashi', date:'2026-11-05', day:'Thu', name:'Rama Ekadashi', time:'Begins 11:03 AM Nov 4 — Ends 10:35 AM Nov 5'},
-    {type:'festival', date:'2026-11-06', day:'Fri', name:'Dhanteras', desc:'First day of Diwali celebrations.'},
-    {type:'amavasya', date:'2026-11-08', day:'Sun', name:'Diwali (Lakshmi Puja) / Kartika Amavasya', time:'Begins 11:27 AM Nov 8 — Ends 12:31 PM Nov 9', desc:'The main festival of lights.'},
-    {type:'festival', date:'2026-11-11', day:'Wed', name:'Bhai Dooj', desc:'Celebrating the sister-brother bond.'},
-    {type:'festival', date:'2026-11-15', day:'Sun', name:'Chhath Puja', desc:'Sun worship, prominent in Bihar and eastern UP.'},
-    {type:'ekadashi', date:'2026-11-20', day:'Fri', name:'Devutthana Ekadashi / Tulsi Vivah', time:'Begins 7:15 AM — Ends 6:31 AM Nov 21', desc:'Wedding season resumes. Lord Vishnu awakens from his four-month sleep.'},
-    {type:'purnima', date:'2026-11-24', day:'Tue', name:'Kartika Purnima', time:'Begins 11:42 PM Nov 23 — Ends 8:23 PM Nov 24'}
+    {type:'ekadashi', date:'2026-11-05', day:'Thu', name:'Rama Ekadashi', name_hi:'रमा एकादशी', time:'Begins 11:03 AM Nov 4 — Ends 10:35 AM Nov 5'},
+    {type:'festival', date:'2026-11-06', day:'Fri', name:'Dhanteras', name_hi:'धनतेरस', desc:'First day of Diwali celebrations.', desc_hi:'दिवाली समारोह का पहला दिन।'},
+    {type:'amavasya', date:'2026-11-08', day:'Sun', name:'Diwali (Lakshmi Puja)', name_hi:'दिवाली (लक्ष्मी पूजा)', time:'Begins 11:27 AM Nov 8 — Ends 12:31 PM Nov 9', desc:'The main festival of lights.', desc_hi:'रोशनी का मुख्य त्योहार।'},
+    {type:'festival', date:'2026-11-11', day:'Wed', name:'Bhai Dooj', name_hi:'भाई दूज', desc:'Celebrating the sister-brother bond.', desc_hi:'भाई-बहन के बंधन का जश्न।'},
+    {type:'festival', date:'2026-11-15', day:'Sun', name:'Chhath Puja', name_hi:'छठ पूजा', desc:'Sun worship, prominent in Bihar and eastern UP.', desc_hi:'सूर्य पूजा, बिहार और पूर्वी यूपी में प्रमुख।'},
+    {type:'ekadashi', date:'2026-11-20', day:'Fri', name:'Devutthana Ekadashi', name_hi:'देवोत्थान एकादशी / तुलसी विवाह', time:'Begins 7:15 AM — Ends 6:31 AM Nov 21', desc:'Lord Vishnu awakens from his sleep.', desc_hi:'विवाह का मौसम शुरू। भगवान विष्णु अपनी नींद से जागते हैं।'},
+    {type:'purnima', date:'2026-11-24', day:'Tue', name:'Kartika Purnima', name_hi:'कार्तिक पूर्णिमा', time:'Begins 11:42 PM Nov 23 — Ends 8:23 PM Nov 24'}
   ]
 },
 {
-  key:'dec', name:'December', lunar:'Margashirsha – Paush', num:'12',
+  key:'dec', name:'December', name_hi:'दिसंबर', lunar:'Margashirsha – Paush', lunar_hi:'मार्गशीर्ष – पौष', num:'12',
   events:[
-    {type:'ekadashi', date:'2026-12-04', day:'Fri', name:'Utpanna Ekadashi', time:'Begins 11:03 PM Dec 3 — Ends 11:44 PM Dec 4'},
-    {type:'amavasya', date:'2026-12-08', day:'Tue', name:'Margashirsha Amavasya', time:'Begins 4:12 AM — Ends 6:21 AM Dec 9'},
-    {type:'festival', date:'2026-12-19', day:'Sat', name:'Gita Jayanti', desc:'Anniversary of the Bhagavad Gita\'s discourse.'},
-    {type:'ekadashi', date:'2026-12-20', day:'Sun', name:'Mokshada Ekadashi', time:'Begins 10:09 PM Dec 19 — Ends 8:14 PM Dec 20'},
-    {type:'purnima', date:'2026-12-23', day:'Wed', name:'Margashirsha Purnima', time:'Begins 10:47 AM — Ends 6:57 AM Dec 24'}
+    {type:'ekadashi', date:'2026-12-04', day:'Fri', name:'Utpanna Ekadashi', name_hi:'उत्पन्ना एकादशी', time:'Begins 11:03 PM Dec 3 — Ends 11:44 PM Dec 4'},
+    {type:'amavasya', date:'2026-12-08', day:'Tue', name:'Margashirsha Amavasya', name_hi:'मार्गशीर्ष अमावस्या', time:'Begins 4:12 AM — Ends 6:21 AM Dec 9'},
+    {type:'festival', date:'2026-12-19', day:'Sat', name:'Gita Jayanti', name_hi:'गीता जयंती', desc:'Anniversary of the Bhagavad Gita.', desc_hi:'भगवद गीता का अवतरण दिवस।'},
+    {type:'ekadashi', date:'2026-12-20', day:'Sun', name:'Mokshada Ekadashi', name_hi:'मोक्षदा एकादशी', time:'Begins 10:09 PM Dec 19 — Ends 8:14 PM Dec 20'},
+    {type:'purnima', date:'2026-12-23', day:'Wed', name:'Margashirsha Purnima', name_hi:'मार्गशीर्ष पूर्णिमा', time:'Begins 10:47 AM — Ends 6:57 AM Dec 24'}
   ]
 }
 ];
 
+let currentLang = 'en';
 const nav = document.getElementById('monthNav');
-const monthsEl = document.getElementById('months');
+const monthsContainer = document.getElementById('monthsContainer');
 const searchInput = document.getElementById('searchInput');
 const filterBtns = document.querySelectorAll('.filter-btn');
-const noResults = document.getElementById('noResults');
+const langSelect = document.getElementById('langSelect');
+let observer = null;
 
-// Utility to create a URL-friendly slug
 function createSlug(text) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 }
 
-// 1. Render the Calendar
-MONTHS.forEach((m) => {
-  const a = document.createElement('a');
-  a.href = '#' + m.key;
-  a.textContent = m.name;
-  a.dataset.key = m.key;
-  nav.appendChild(a);
+// Translate Basic Time strings
+function translateTime(str, lang) {
+  if (lang === 'en' || !str) return str;
+  const dict = {
+    'Begins': 'प्रारंभ', 'Ends': 'समाप्त',
+    'Jan': 'जनवरी', 'Feb': 'फरवरी', 'Mar': 'मार्च', 'Apr': 'अप्रैल', 'May': 'मई', 'Jun': 'जून',
+    'Jul': 'जुलाई', 'Aug': 'अगस्त', 'Sep': 'सितंबर', 'Oct': 'अक्टूबर', 'Nov': 'नवंबर', 'Dec': 'दिसंबर',
+    ' AM': ' पूर्वाह्न', ' PM': ' अपराह्न'
+  };
+  let t = str;
+  for (const [e, h] of Object.entries(dict)) { t = t.split(e).join(h); }
+  return t;
+}
 
-  const sec = document.createElement('section');
-  sec.className = 'month-section';
-  sec.id = m.key;
+// 1. Update Static Text
+function updateStaticUI() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.innerHTML = i18n[currentLang][el.getAttribute('data-i18n')];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    el.placeholder = i18n[currentLang][el.getAttribute('data-i18n-ph')];
+  });
+}
 
-  let rowsHtml = '';
-  m.events.forEach((ev) => {
-    const dateObj = new Date(ev.date + 'T00:00:00');
-    const dayNum = dateObj.getDate();
-    const eventId = createSlug(ev.name);
-    
-    // Fallback descriptions for lunar phases if no specific description is provided
-    let finalDesc = ev.desc;
-    if (!finalDesc) {
-      if (ev.type === 'ekadashi') {
-        finalDesc = 'Ekadashi is the 11th lunar day of a lunar phase, dedicated to Lord Vishnu. Fasting on this day is believed to cleanse the mind and body of sins and bestow spiritual merit.';
-      } else if (ev.type === 'amavasya') {
-        finalDesc = 'Amavasya marks the new moon day. It is a highly significant day for honoring ancestors, performing charity, and engaging in deep spiritual meditation.';
-      } else if (ev.type === 'purnima') {
-        finalDesc = 'Purnima is the full moon day. It is considered highly auspicious for fasting, taking holy dips in sacred rivers, and worshipping deities like Lord Vishnu, Shiva, or Goddess Lakshmi.';
+// 2. Render Calendar Data
+function renderCalendar() {
+  nav.innerHTML = '';
+  monthsContainer.innerHTML = '';
+  const text = i18n[currentLang];
+
+  MONTHS.forEach((m) => {
+    // Nav Items
+    const a = document.createElement('a');
+    a.href = '#' + m.key;
+    a.textContent = currentLang === 'hi' ? m.name_hi : m.name;
+    a.dataset.key = m.key;
+    nav.appendChild(a);
+
+    // Month Section
+    const sec = document.createElement('section');
+    sec.className = 'month-section';
+    sec.id = m.key;
+
+    let rowsHtml = '';
+    m.events.forEach((ev) => {
+      const dateObj = new Date(ev.date + 'T00:00:00');
+      const dayNum = dateObj.getDate();
+      const eventId = createSlug(ev.name); // Always base ID on English for persistence
+      
+      const evName = currentLang === 'hi' && ev.name_hi ? ev.name_hi : ev.name;
+      const evDay = currentLang === 'hi' ? dayI18n[ev.day] : ev.day;
+      const evTag = currentLang === 'hi' && typeI18n[ev.type] ? typeI18n[ev.type] : ev.type;
+      const evTime = translateTime(ev.time, currentLang);
+      
+      let finalDesc = currentLang === 'hi' && ev.desc_hi ? ev.desc_hi : ev.desc;
+      if (!finalDesc) {
+        if (ev.type === 'ekadashi') finalDesc = text.fallbackEkadashi;
+        else if (ev.type === 'amavasya') finalDesc = text.fallbackAmavasya;
+        else if (ev.type === 'purnima') finalDesc = text.fallbackPurnima;
       }
-    }
 
-    // Add Expandable Accordion if description exists
-    let accordionHtml = '';
-    if(finalDesc) {
-      accordionHtml = `
-        <button class="toggle-btn" aria-expanded="false">Significance & Info</button>
-        <div class="accordion-content">
-          <div class="why-text">${finalDesc}</div>
-          <div class="event-nav">
-             <button class="nav-btn prev-btn">← Prev Event</button>
-             <button class="nav-btn next-btn">Next Event →</button>
+      let accordionHtml = '';
+      if(finalDesc) {
+        accordionHtml = `
+          <button class="toggle-btn" aria-expanded="false">${text.sigInfo}</button>
+          <div class="accordion-content">
+            <div class="why-text">${finalDesc}</div>
+            <div class="event-nav">
+               <button class="nav-btn prev-btn">${text.prevEvent}</button>
+               <button class="nav-btn next-btn">${text.nextEvent}</button>
+            </div>
           </div>
-        </div>
-      `;
-    }
+        `;
+      }
 
-    rowsHtml += `
-      <div class="event-row ${ev.type} visible" id="${eventId}" data-name="${ev.name}" data-type="${ev.type}">
-        <div class="event-date"><div class="d">${dayNum}</div><div class="w">${ev.day}</div></div>
-        <div class="event-body">
-          <div class="event-name"><span class="event-tag">${ev.type}</span>${ev.name}</div>
-          ${accordionHtml}
-        </div>
-        <div class="event-time">${ev.time ? ev.time : ''}</div>
-      </div>`;
+      // Store English name in dataset for filtering logic consistency
+      rowsHtml += `
+        <div class="event-row ${ev.type} visible" id="${eventId}" data-name="${ev.name}" data-name-hi="${ev.name_hi || ''}" data-type="${ev.type}">
+          <div class="event-date"><div class="d">${dayNum}</div><div class="w">${evDay}</div></div>
+          <div class="event-body">
+            <div class="event-name"><span class="event-tag">${evTag}</span>${evName}</div>
+            ${accordionHtml}
+          </div>
+          <div class="event-time">${evTime ? evTime : ''}</div>
+        </div>`;
+    });
+
+    const mName = currentLang === 'hi' ? m.name_hi : m.name;
+    const mLunar = currentLang === 'hi' ? m.lunar_hi : m.lunar;
+
+    sec.innerHTML = `
+      <div class="month-head">
+        <span class="num mono">${m.num}</span>
+        <h2>${mName} 2026</h2>
+        <span class="lunar-name mono">${mLunar}</span>
+      </div>
+      <div class="month-events">${rowsHtml}</div>
+    `;
+    monthsContainer.appendChild(sec);
   });
 
-  sec.innerHTML = `
-    <div class="month-head">
-      <span class="num mono">${m.num}</span>
-      <h2>${m.name} 2026</h2>
-      <span class="lunar-name mono">${m.lunar}</span>
-    </div>
-    <div class="month-events">${rowsHtml}</div>
-  `;
-  // Insert before noResults
-  monthsEl.insertBefore(sec, noResults);
-});
+  applyFilters(); // Re-apply search/filters on the new DOM
+  setupScrollSpy(); // Re-bind observer to new sections
+}
 
-// 2. Search & Filter Logic
+// 3. Search & Filter Logic
 function applyFilters() {
   const query = searchInput.value.toLowerCase();
   const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
   let visibleCount = 0;
 
   document.querySelectorAll('.event-row').forEach(row => {
-    const name = row.dataset.name.toLowerCase();
+    const nameEn = row.dataset.name.toLowerCase();
+    const nameHi = row.dataset.nameHi.toLowerCase();
     const type = row.dataset.type;
-    const matchesQuery = name.includes(query);
+    const matchesQuery = nameEn.includes(query) || nameHi.includes(query);
     const matchesFilter = activeFilter === 'all' || type === activeFilter;
 
     if (matchesQuery && matchesFilter) {
@@ -599,13 +696,12 @@ function applyFilters() {
     }
   });
 
-  // Hide empty months
   document.querySelectorAll('.month-section').forEach(sec => {
     const hasVisible = sec.querySelectorAll('.event-row.visible').length > 0;
     sec.style.display = hasVisible ? 'block' : 'none';
   });
 
-  noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+  document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
 }
 
 searchInput.addEventListener('input', applyFilters);
@@ -618,40 +714,43 @@ filterBtns.forEach(btn => {
   });
 });
 
-// 3. Accordion & Next/Prev Event Navigation
-monthsEl.addEventListener('click', (e) => {
-  // Accordion Toggle
+// 4. Language Switcher Event
+langSelect.addEventListener('change', (e) => {
+  currentLang = e.target.value;
+  updateStaticUI();
+  renderCalendar();
+  
+  // Re-apply URL hash focus if open
+  if(window.location.hash) {
+    const target = document.querySelector(window.location.hash);
+    if(target) target.classList.add('expanded');
+  }
+});
+
+// 5. Accordion & Next/Prev Event Navigation
+document.querySelector('.months').addEventListener('click', (e) => {
   if (e.target.closest('.toggle-btn')) {
     const row = e.target.closest('.event-row');
     const isExpanded = row.classList.contains('expanded');
     
-    // Close others
     document.querySelectorAll('.event-row.expanded').forEach(r => {
       if(r !== row) r.classList.remove('expanded');
     });
-    
     row.classList.toggle('expanded');
     
-    // Update URL Hash without jumping
-    if (!isExpanded) {
-      history.replaceState(null, null, '#' + row.id);
-    }
+    if (!isExpanded) history.replaceState(null, null, '#' + row.id);
   }
   
-  // Prev / Next Navigation
   if (e.target.closest('.nav-btn')) {
     const currentRow = e.target.closest('.event-row');
     const visibleRows = Array.from(document.querySelectorAll('.event-row.visible'));
     const currentIndex = visibleRows.indexOf(currentRow);
     const direction = e.target.classList.contains('next-btn') ? 1 : -1;
-    
     const targetRow = visibleRows[currentIndex + direction];
     
     if (targetRow) {
       currentRow.classList.remove('expanded');
       targetRow.classList.add('expanded');
-      
-      // Update Hash and Scroll
       history.pushState(null, null, '#' + targetRow.id);
       targetRow.scrollIntoView({ behavior: 'smooth', block: 'center' });
       targetRow.classList.add('target-highlight');
@@ -660,8 +759,33 @@ monthsEl.addEventListener('click', (e) => {
   }
 });
 
-// 4. URL Hash Support on Load
+// 6. Scroll-spy for Sticky Month Nav
+function setupScrollSpy() {
+  if (observer) observer.disconnect();
+  const links = Array.from(nav.querySelectorAll('a'));
+  const sections = Array.from(document.querySelectorAll('.month-section'));
+  
+  observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const link = nav.querySelector(`a[data-key="${entry.target.id}"]`);
+        if(link) {
+          link.classList.add('active');
+          link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest'});
+        }
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  
+  sections.forEach(s => observer.observe(s));
+}
+
+// Init
 window.addEventListener('DOMContentLoaded', () => {
+  updateStaticUI();
+  renderCalendar();
+  
   if(window.location.hash) {
     const target = document.querySelector(window.location.hash);
     if(target && target.classList.contains('event-row')) {
@@ -673,21 +797,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-
-// 5. Scroll-spy for Sticky Month Nav
-const links = Array.from(nav.querySelectorAll('a'));
-const sections = MONTHS.map(m=>document.getElementById(m.key));
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      links.forEach(l=>l.classList.remove('active'));
-      const link = nav.querySelector(`a[data-key="${entry.target.id}"]`);
-      if(link) link.classList.add('active');
-      link.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest'});
-    }
-  });
-}, { rootMargin: '-40% 0px -55% 0px' });
-sections.forEach(s=> s && observer.observe(s));
 </script>
 
 </body>
