@@ -305,7 +305,8 @@
 
   @media (max-width: 640px){
     .event-row{ grid-template-columns: 50px 1fr; }
-    .event-time{ grid-column: 1 / -1; text-align:left; padding-left: 66px; }
+    /* FIXED OVERFLOW: Added white-space: normal to allow wrapping */
+    .event-time{ grid-column: 1 / -1; text-align:left; padding-left: 66px; white-space: normal; }
     .month-head .lunar-name{ margin-left:0; flex-basis:100%; text-align: center; } /* Ensures lunar name wraps nicely to center */
     .controls-inner { flex-direction: column; align-items: center; }
     .search-box { max-width: 100%; }
